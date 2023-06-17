@@ -4,6 +4,7 @@
  */
 package prjsemana04.main;
 
+import java.awt.TextArea;
 import javax.swing.JOptionPane;
 
 /**
@@ -40,9 +41,11 @@ public class clsEjercicios {
                     break;
                 case 'C':
                     JOptionPane.showMessageDialog(null, "Bienvenido al ejemplo de WHILE");
+                    this.ejemploWhile();
                     break;
                 case 'D':
                     JOptionPane.showMessageDialog(null, "Bienvenido al ejemplo de FOR");
+                    this.ejemploFor();
                     break;
                 case 'S':
                     JOptionPane.showMessageDialog(null, "Gracias por utilizar el sistema."
@@ -154,6 +157,78 @@ public class clsEjercicios {
                 }
             }
         }
+    }
+    
+    public void ejemploWhile(){
+        /*Genere un programa que reciba del usuario numeros hasta que este ya no 
+          desee realizar más iteraciones, al final con los numeros recibidos imprima:
+            1. Cantidad de números pares
+            2. Cantidad de números impares
+            3. Numero Mayor
+            4. Numero Menor
+        */
+        char continuar = 'S';
+        int cantPar = 0, cantImpar = 0, numeroMay = 0, numeroMen = 0;
+        boolean primeraVez = true;
+        while(continuar == 'S'){
+            int numero = Integer.parseInt(JOptionPane.showInputDialog("Digite un número"));
+            if (primeraVez) {
+                numeroMay = numero;
+                numeroMen = numero;
+                primeraVez = false;
+            }else{
+                if (numeroMay<numero) {
+                    numeroMay = numero;
+                }
+                if (numeroMen>numero) {
+                    numeroMen = numero;
+                }
+            }
+            if (numero%2 == 0) {
+                cantPar++;
+                //cantPar+=1;
+                //cantPar=cantPar+1;
+            }else{
+                cantImpar++;
+            }
+            do {
+                continuar = JOptionPane.showInputDialog("Desea continuar?\nSi\nNo").toUpperCase().charAt(0);
+            } while (continuar != 'S'&& continuar != 'N');
+        }
+        JOptionPane.showMessageDialog(null, "Los resultados obtenidos son:"
+                + "\nCantidad de Pares: "+cantPar
+                + "\nCantidad de Impares: "+cantImpar
+                + "\nNumero Mayor: "+numeroMay
+                + "\nNumero Menor: "+numeroMen
+        );
+    }
+    
+    public void ejemploFor(){
+        /*
+            Utilizando ciclos genere una pirámide con *, debe imprimir caracter a caracter
+            y debe consultar al usuario la cantidad de pisos de la pirámide.
+        */
+        int tam = 0;
+        do {
+            tam =Integer.parseInt(JOptionPane.showInputDialog("Digite un numero mayor o igual a 3:"));
+        } while (tam<3);
+        String piramide = "";
+        int espacios = tam;
+        for (int p = 0; p < tam; p++) { //Imprime a la siguiente linea
+            for (int b = espacios; b > 0; b--) { //Espacio en blanco
+                piramide+=" ";
+            }
+            for (int a = 0; a <= p ; a++) { //Lado Izquierdo
+                piramide+="*";
+            }
+            for (int a = 0; a <= p ; a++) { //Lado Derecho
+                piramide+="*";
+            }
+            espacios--;
+            piramide+="\n";
+        }
+        JOptionPane.showMessageDialog(null, new TextArea(piramide));
+        System.out.println(piramide);
     }
 }
 /*def*/
