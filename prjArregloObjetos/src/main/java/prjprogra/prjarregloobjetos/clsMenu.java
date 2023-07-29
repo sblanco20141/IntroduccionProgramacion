@@ -53,7 +53,7 @@ public class clsMenu {
                             clsH.imprimeMensaje("La lista clientes se encuentra llena, ya no puede agregar más!");
                         }
                     } else {
-                        clsH.imprimeMensaje("Debe generar primero la lista de clientes");
+                        clsH.imprimeMensaje("Debe generar primero la lista de clientes!");
                     }
                     break;
                 case 'C':
@@ -67,7 +67,7 @@ public class clsMenu {
                     break;
                 case 'F':
                     if (poscCliente == 0) {
-                        clsH.imprimeMensaje("Debe agregar un cliente primero");
+                        clsH.imprimeMensaje("Debe agregar un cliente primero!");
                     }
                     else{
                         clsC.listarClientes(clientes, poscCliente);
@@ -80,7 +80,7 @@ public class clsMenu {
 
                     break;
                 default:
-                    clsH.imprimeMensaje("La opción seleccionada no es válida");
+                    clsH.imprimeMensaje("La opción seleccionada no es válida!");
             }
 
         } while (opcion != 'S');
@@ -122,7 +122,7 @@ public class clsMenu {
 
                     break;
                 default:
-                    clsH.imprimeMensaje("La opción seleccionada no es válida");
+                    clsH.imprimeMensaje("La opción seleccionada no es válida!");
             }
 
         } while (opcion != 'R');

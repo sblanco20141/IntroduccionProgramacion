@@ -94,7 +94,7 @@ public class clsCliente {
     
     public clsCliente[] generarListaCliente(){
         clsHelper clsH = new clsHelper();
-        int tamano = clsH.recibeInt("Digite la cantidad de clientes que quiere almacenar");
+        int tamano = clsH.recibeInt("Digite la cantidad de clientes que quiere almacenar:");
         clsCliente clientes[] = new clsCliente[tamano];        
         //clsCliente []clientes = new clsCliente[tamano];
         
