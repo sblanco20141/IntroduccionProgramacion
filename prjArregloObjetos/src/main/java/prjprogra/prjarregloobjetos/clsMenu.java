@@ -85,7 +85,13 @@ public class clsMenu {
                     }
                     break;
                 case 'G':
-                    this.MenuMascota();
+                    int posc = clsC.obtenerPoscCliente(clientes, poscCliente, "buscar para administrar sus mascotas");
+                    if (posc == -1) {
+                        clsH.imprimeMensaje("No se encontraron coincidencias");
+                    } else {
+                        clientes[posc] = this.MenuMascota(clientes[posc]);
+                        clsH.imprimeMensaje("Los datos de sus mascotas fueron almacenados correctamente");
+                    }
                     break;
                 case 'S':
 
@@ -98,8 +104,11 @@ public class clsMenu {
 
     }
 
-    public void MenuMascota() {
+    public clsCliente MenuMascota(clsCliente cliente) {
         clsHelper clsH = new clsHelper();
+        clsMascota clsM = new clsMascota();
+        clsMascota mascotas[] = cliente.getListaMascotas();
+        int poscMascota = cliente.getCantMascotas();
         char opcion = 'S';
         do {
             opcion = clsH.recibeChar("Seleccione una opcion:\n"
@@ -112,22 +121,59 @@ public class clsMenu {
                     + " R. Regresar a Cliente");
             switch (opcion) {
                 case 'A':
-
+                    if (poscMascota >= 0) {
+                        char nueva = 'N';
+                        do {
+                            nueva = clsH.recibeChar("Desea generar una nueva lista?\nSi\nNo");
+                        } while (nueva != 'S' && nueva != 'N');
+                        if (nueva == 'S') {
+                            mascotas = clsM.generarListaMascota();
+                            poscMascota = 0;
+                        }
+                    } else {
+                        mascotas = clsM.generarListaMascota();
+                        poscMascota = 0;
+                    }
                     break;
                 case 'B':
-
+                    if (poscMascota == -1) {
+                        clsH.imprimeMensaje("Debe generar primero la lista de mascotas!");
+                    } else {
+                        if (poscMascota < mascotas.length) {
+                            poscMascota = clsM.agregarMascota(mascotas, poscMascota);
+                            clsH.imprimeMensaje("Mascota agregada satisfactoriamente.");
+                        } else {
+                            clsH.imprimeMensaje("La lista mascotas se encuentra llena, ya no puede agregar más!");
+                        }
+                    }
                     break;
                 case 'C':
-
+                    if (poscMascota < 1) {
+                        clsH.imprimeMensaje("Debe agregar una mascota primero!");
+                    } else {
+                        clsM.modificarMascota(mascotas, poscMascota);
+                    }
                     break;
                 case 'D':
-
+                    if (poscMascota < 1) {
+                        clsH.imprimeMensaje("Debe agregar una mascota primero!");
+                    } else {
+                        poscMascota = clsM.eliminarMascota(mascotas, poscMascota);
+                    }
                     break;
                 case 'E':
-
+                    if (poscMascota < 1) {
+                        clsH.imprimeMensaje("Debe agregar una mascota primero!");
+                    } else {
+                        clsM.buscarMascota(mascotas, poscMascota);
+                    }
                     break;
                 case 'F':
-
+                    if (poscMascota < 1) {
+                        clsH.imprimeMensaje("Debe agregar una mascota primero!");
+                    } else {
+                        clsM.listarMascotas(mascotas, poscMascota);
+                    }
                     break;
                 case 'R':
 
@@ -137,6 +183,10 @@ public class clsMenu {
             }
 
         } while (opcion != 'R');
-
+        
+        cliente.setCantMascotas(poscMascota);
+        cliente.setListaMascotas(mascotas);
+        
+        return cliente;
     }
 }

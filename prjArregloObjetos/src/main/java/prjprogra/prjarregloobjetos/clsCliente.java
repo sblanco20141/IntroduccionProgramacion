@@ -26,6 +26,7 @@ public class clsCliente {
         this.numTelefono = numTelefono;
         this.direccion = direccion;
         this.edad = edad;
+        this.cantMascotas = -1;
     }
 
     public clsCliente() {
