@@ -114,6 +114,95 @@ public class clsCliente {
         return poscCliente;
     }
     
+    public int obtenerPoscCliente(clsCliente clientes[], int poscCliente, String accion){
+        clsHelper clsH = new clsHelper();
+        String nombreBuscar = clsH.recibeString("Digite el nombre del cliente que desea "+accion+":");
+        int poscClienteBuscado = -1;
+        for (int i = 0; i < poscCliente; i++) {
+            if (nombreBuscar.equalsIgnoreCase(clientes[i].getNombreCompleto())) {
+                poscClienteBuscado = i;
+                break;
+            }
+        }
+        return poscClienteBuscado;
+    }
+    
+    public void modificarCliente(clsCliente clientes[], int poscCliente){
+        clsHelper clsH = new clsHelper();
+        int posc = this.obtenerPoscCliente(clientes, poscCliente, "modificar");
+        if (posc == -1) {
+            clsH.imprimeMensaje("No se encontraron coincidencias con el nombre indicado.");
+        }else{
+            char opcion ='S';
+            do {
+                opcion = clsH.recibeChar("Seleccione el dato que desea modificar:"
+                        + "\n A. Nombre Completo"
+                        + "\n B. Correo"
+                        + "\n C. Telefono"
+                        + "\n D. Direccion"
+                        + "\n E. Edad"
+                        + "\n S. Salir");
+                switch(opcion){
+                    case 'A':
+                        clientes[posc].setNombreCompleto(clsH.recibeString("Digite el nuevo nombre del cliente:"));
+                        break;
+                    case 'B':
+                        clientes[posc].setCorreo(clsH.recibeString("Digite el nuevo correo del cliente:"));
+                        break;
+                    case 'C':
+                        clientes[posc].setNumTelefono(clsH.recibeString("Digite el nuevo teléfono del cliente:"));
+                        break;
+                    case 'D':
+                        clientes[posc].setDireccion(clsH.recibeString("Digite la nueva direccion del cliente:"));
+                        break;
+                    case 'E':
+                        clientes[posc].setEdad(clsH.recibeInt("Digite la nueva edad del cliente:"));
+                        break;
+                    case 'S':
+                        clsH.imprimeMensaje("Datos modificados correctamente");
+                        break;
+                    default:
+                        clsH.imprimeMensaje("Opción seleccionada incorrecta");
+                        break;
+                }
+                
+            } while (opcion!='S');
+        }
+    }
+    
+    public int eliminarCliente(clsCliente clientes[], int poscCliente){
+        clsHelper clsH = new clsHelper();
+        int posc = this.obtenerPoscCliente(clientes, poscCliente, "eliminar");
+        if (posc == -1) {
+            clsH.imprimeMensaje("No se encontraron coincidencias con el nombre digitado");
+        }else{
+            for (int i = posc; i < poscCliente-1; i++) {
+                clientes[i] = clientes[i+1];
+            }
+            poscCliente--;
+            clientes[poscCliente] = null;
+            clsH.imprimeMensaje("El cliente se eliminó de forma correcta");
+        }
+        return poscCliente;
+    }
+    
+    public void buscarCliente(clsCliente clientes[], int poscCliente){
+        clsHelper clsH = new clsHelper();
+        int posc = this.obtenerPoscCliente(clientes, poscCliente, "buscar");
+        if (posc==-1) {
+            clsH.imprimeMensaje("No se encontraron coincidencia con el nombre digitado");
+        }
+        else{
+            clsH.imprimeMensaje("Los datos del cliente son:\n"
+                    + " Nombre: "+clientes[posc].getNombreCompleto()
+                    + " \nCorreo: "+clientes[posc].getCorreo()
+                    + " \nTelefono: "+clientes[posc].getNumTelefono()
+                    + " \nDirección: "+clientes[posc].getDireccion()
+                    + " \nEdad: "+clientes[posc].getEdad()
+            );
+        }
+    }
+    
     public void listarClientes(clsCliente clientes[], int poscCliente){
         clsHelper clsH = new clsHelper();
         String impresion = "Nombre\tCorreo\tTelefono\tDireccion\tEdad\n";

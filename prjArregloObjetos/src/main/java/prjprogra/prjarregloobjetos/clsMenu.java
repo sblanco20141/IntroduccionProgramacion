@@ -57,19 +57,30 @@ public class clsMenu {
                     }
                     break;
                 case 'C':
-
+                    if (poscCliente == 0) {
+                        clsH.imprimeMensaje("Debe agregar un cliente primero!");
+                    } else {
+                        clsC.modificarCliente(clientes, poscCliente);
+                    }
                     break;
                 case 'D':
-
+                    if (poscCliente == 0) {
+                        clsH.imprimeMensaje("Debe agregar un cliente primero!");
+                    } else {
+                        poscCliente = clsC.eliminarCliente(clientes, poscCliente);
+                    }
                     break;
                 case 'E':
-
+                    if (poscCliente == 0) {
+                        clsH.imprimeMensaje("Debe agregar un cliente primero!");
+                    } else {
+                        clsC.buscarCliente(clientes, poscCliente);
+                    }
                     break;
                 case 'F':
                     if (poscCliente == 0) {
                         clsH.imprimeMensaje("Debe agregar un cliente primero!");
-                    }
-                    else{
+                    } else {
                         clsC.listarClientes(clientes, poscCliente);
                     }
                     break;
